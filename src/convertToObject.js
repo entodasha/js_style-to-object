@@ -13,9 +13,11 @@ function convertToObject(sourceString) {
     .map((line) => line.trim())
     .filter((line) => line)
     .forEach((line) => {
-      const [key, value] = line.split(':');
+      const [key, ...valueParts] = line.split(':');
 
-      CONVERTED_STYLES[key.trim()] = value.trim();
+      if (key && valueParts.length > 0) {
+        CONVERTED_STYLES[key.trim()] = valueParts.join(':').trim();
+      }
     });
 
   return CONVERTED_STYLES;
